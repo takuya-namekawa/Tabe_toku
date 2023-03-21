@@ -1,0 +1,7 @@
+<%= form_with model: @item, url: admin_item_path(@item) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :explanation %>
+  <%= f.text_area :explanation %>
+  <%= f.submit %>
+<% end %>

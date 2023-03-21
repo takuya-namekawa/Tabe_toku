@@ -1,0 +1,12 @@
+<h1>Public::Homes#top</h1>
+<p>Find me in app/views/public/homes/top.html.erb</p>
+
+<%= link_to "sign_in", new_customer_session_path %>
+<%= link_to "sign_up", new_customer_registration_path %>
+<%= link_to "sign_out", destroy_customer_session_path, method: :delete %>
+<br>
+<%= link_to "admin_sign_in", new_admin_session_path %>
+<%= link_to "admin_sign_up", new_admin_registration_path %>
+<%= link_to "admin_sign_out", destroy_admin_session_path, method: :delete %>
+<br>
+<%= link_to "item_index", admin_items_path %>
