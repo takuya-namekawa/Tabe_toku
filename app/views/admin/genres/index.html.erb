@@ -1,0 +1,13 @@
+<h1>Admin::Genres#index</h1>
+<p>Find me in app/views/admin/genres/index.html.erb</p>
+<%= form_with model: @genre, url: admin_genres_path do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  <%= f.submit %>
+<% end %>
+
+<% @genres.each do |genre| %>
+  <%= genre.name %>
+  <%= link_to "編集", edit_admin_genre_path(genre) %>
+  <%= link_to "削除", admin_genre_path(genre), method: :delete, class: 'btn- btn-outline-secondary',"data-confirm" => "本当に消しますか？" %>
+<% end %>

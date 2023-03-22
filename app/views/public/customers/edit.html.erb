@@ -1,0 +1,11 @@
+<%= form_with model: @customer, url: customer_path(@customer) do |f| %>
+  <%= f.label :会員名 %>
+  <%= f.text_field :name, autofocus: true %>
+  <%= f.label :フリガナ %>
+  <%= f.text_field :name_kana, autofocus: true %>
+  <%= f.label :電話番号  %>
+  <%= f.text_field:phone_number, autofocus: true %>
+  <%= f.label :メールアドレス %>
+  <%= f.email_field :email, autofocus: true %>
+  <%= f.submit " 会員情報を編集する "  %>
+<% end %>

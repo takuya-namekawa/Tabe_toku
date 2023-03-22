@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :admin
+  belongs_to :genre
   has_one_attached :image
 
   def get_image(width, height)

@@ -1,7 +1,17 @@
 <%= form_with model: @item, url: admin_item_path(@item) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :explanation %>
-  <%= f.text_area :explanation %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  <%= f.label :explanation %><br>
+  <%= f.text_area :explanation %><br>
+  <%= f.label :half_price %><br>
+  <%= f.text_area :half_price %><br>
+  <%= f.label :price %><br>
+  <%= f.text_area :price %><br>
+  <%= f.label :inventory %><br>
+  <%= f.text_area :inventory %><br>
+  <%= f.label :genre %><br>
+  <%= f.collection_select :genre_id, Genre.all, :id, :name %><br>
+  <%= f.label :image %><br>
+  <%= f.file_field :image, accept: "image/*" %>
   <%= f.submit %>
 <% end %>

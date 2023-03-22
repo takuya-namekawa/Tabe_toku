@@ -1,9 +1,18 @@
 <h1>Admin::Items#index</h1>
+<%= link_to "genre_index", admin_genres_path %><br>
 <%= form_with model: @item, url: admin_items_path do |f| %>
   <%= f.label :name %><br>
   <%= f.text_field :name %><br>
   <%= f.label :explanation %><br>
   <%= f.text_area :explanation %><br>
+  <%= f.label :half_price %><br>
+  <%= f.text_area :half_price %><br>
+  <%= f.label :price %><br>
+  <%= f.text_area :price %><br>
+  <%= f.label :inventory %><br>
+  <%= f.text_area :inventory %><br>
+  <%= f.label :genre %><br>
+  <%= f.collection_select :genre_id, Genre.all, :id, :name %>
   <%= f.label :image %><br>
   <%= f.file_field :image, accept: "image/*" %>
   <%= f.submit %>
@@ -13,11 +22,15 @@
   <% if item.admin == current_admin %>
     <%= item.name %>
     <%= item.explanation %>
+    <%= item.half_price %>
+    <%= item.price %>
+    <%= item.inventory %>
     <%= image_tag item.get_image(100,100) %>
     <%= link_to "編集", edit_admin_item_path(item) %>
     <%= link_to "削除", admin_item_path(item), method: :delete %>
   <% end %>
 <% end %>
+
 
 
 
