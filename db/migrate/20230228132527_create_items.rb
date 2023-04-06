@@ -8,7 +8,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.integer :half_price
       t.integer :price
       t.integer :inventory
-      t.boolean :is_ordered
+      t.boolean :is_ordered, null: false, default: true
 
       t.timestamps
     end

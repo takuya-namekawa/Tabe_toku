@@ -1,0 +1,9 @@
+ja:
+    enums:
+      order:
+        payment_method:
+          cash: "現金"
+          credit_card: "クレジットカード"
+          transportation_money: "交通系マネー"
+          barcode: "バーコード決済"
+

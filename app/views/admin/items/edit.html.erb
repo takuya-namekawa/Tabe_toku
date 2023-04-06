@@ -1,17 +1,86 @@
-<%= form_with model: @item, url: admin_item_path(@item) do |f| %>
-  <%= f.label :name %><br>
-  <%= f.text_field :name %><br>
-  <%= f.label :explanation %><br>
-  <%= f.text_area :explanation %><br>
-  <%= f.label :half_price %><br>
-  <%= f.text_area :half_price %><br>
-  <%= f.label :price %><br>
-  <%= f.text_area :price %><br>
-  <%= f.label :inventory %><br>
-  <%= f.text_area :inventory %><br>
-  <%= f.label :genre %><br>
-  <%= f.collection_select :genre_id, Genre.all, :id, :name %><br>
-  <%= f.label :image %><br>
-  <%= f.file_field :image, accept: "image/*" %>
-  <%= f.submit %>
+<% if  @item.errors.any? %>
+  <ul class="text-center alert alert-danger"style=" list-style: none; ">
+    <%=  @item.errors.count %>件のエラーが発生しました
+    <% @item.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
 <% end %>
+<div class="container mt-5 mb-3 ">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="text-center font-weight-bold " style="color: #6e470c; ">
+      商品編集</h4>
+    </div>
+  </div>
+</div>
+<div class="container pt-3">
+  <div class="row">
+    <div class=" col-md-6 offset-md-3  col-sm-10 offset-sm-1">
+      <%= form_with model: @item, url:  admin_item_path(@item) do |f| %>
+        <form>
+          <div class="form-group row">
+            <%= f.label :商品名,class: "col-sm-3 col-form-label " %>
+            <div class="col-sm-9 pl-4">
+              <%= f.text_field :name, autofocus: true, class:"form-control ",  id:"inputName", placeholder:"商品名"%>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :商品説明,class: "col-sm-3 col-form-label " %>
+            <div class="col-sm-9 pl-4">
+              <%= f.text_area :explanation, autofocus: true, class:"form-control", rows: 3, id:"inputName", placeholder:"ここに説明文を記述します"%>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :ジャンル,class: "col-sm-3 col-form-label" %>
+            <div class="col-sm-9 pl-4">
+              <%= f.collection_select :genre_id, Genre.all, :id, :name, prompt: "-- 選択してください --", class: 'form-control'%>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :正規価格,class: "col-sm-3 col-form-label " %>
+              <div class="col-sm-9 pl-4 ">
+                <div class="form-check-inline">
+                  <%= f.text_field :price, autofocus: true, class:"form-control ", id:"inputName"%> <label class="form-check-label" for="inlineRadio3">円</label>
+                </div>
+              </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :提供価格,class: "col-sm-3 col-form-label " %>
+              <div class="col-sm-9 pl-4 ">
+                <div class="form-check-inline">
+                  <%= f.text_field :half_price, autofocus: true, class:"form-control ", id:"inputName"%> <label class="form-check-label" for="inlineRadio3">円</label>
+                </div>
+              </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :在庫数,class: "col-sm-3 col-form-label " %>
+              <div class="col-sm-9 pl-4 ">
+                <div class="form-check-inline">
+                  <%= f.text_field :inventory, autofocus: true, class:"form-control ", id:"inputName"%>個<label class="form-check-label" for="inlineRadio3"></label>
+                </div>
+              </div>
+          </div>
+          <div class="form-group row ">
+            <%= f.label :販売ステータス,class: "col-sm-3 col-form-label " %>
+              <div class="col-sm-9 pl-4">
+                <div class="form-check form-check-inline">
+                  <%= f.radio_button :is_ordered, true, checked: true %>Sale
+               </div>
+               <div class="form-check form-check-inline">
+                 <%= f.radio_button :is_ordered, false %>Sold-Out
+               </div>
+              </div>
+          </div>
+          <div class="form-group row">
+            <%= f.label :商品画像 ,class: "col-sm-3 col-form-label " %>
+            <%= f.file_field :image, accept: "image/" ,class:"col-sm-8 pl-4" %>
+          </div>
+          <div class="text-center mb-4">
+            <%= f.submit " 商品を編集する " ,class: "btn btn-secondary" %>
+          </div>
+        </form>
+      <% end %>
+    </div>
+  </div>
+</div>

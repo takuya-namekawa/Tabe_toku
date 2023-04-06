@@ -1,37 +1,40 @@
-<h1>Admin::Items#index</h1>
-<%= link_to "genre_index", admin_genres_path %><br>
-<%= form_with model: @item, url: admin_items_path do |f| %>
-  <%= f.label :name %><br>
-  <%= f.text_field :name %><br>
-  <%= f.label :explanation %><br>
-  <%= f.text_area :explanation %><br>
-  <%= f.label :half_price %><br>
-  <%= f.text_area :half_price %><br>
-  <%= f.label :price %><br>
-  <%= f.text_area :price %><br>
-  <%= f.label :inventory %><br>
-  <%= f.text_area :inventory %><br>
-  <%= f.label :genre %><br>
-  <%= f.collection_select :genre_id, Genre.all, :id, :name %>
-  <%= f.label :image %><br>
-  <%= f.file_field :image, accept: "image/*" %>
-  <%= f.submit %>
-<% end %>
-
-<% @items.each do |item| %>
-  <% if item.admin == current_admin %>
-    <%= item.name %>
-    <%= item.explanation %>
-    <%= item.half_price %>
-    <%= item.price %>
-    <%= item.inventory %>
-    <%= image_tag item.get_image(100,100) %>
-    <%= link_to "編集", edit_admin_item_path(item) %>
-    <%= link_to "削除", admin_item_path(item), method: :delete %>
-  <% end %>
-<% end %>
-
-
-
-
-
+<div class="container mt-5 mb-3 ">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="text-center font-weight-bold " style="color: #6e470c; ">
+      商品一覧</h4>
+    </div>
+  </div>
+</div>
+<div class="container mb-5 pb-5 " style= "min-height: 330px;">
+  <div class="row">
+    <div class="col">
+      <table class="table mb-5 pb-5 table-striped">
+			<% @items.each do |item| %>
+			  <% if item.admin == current_admin %>
+	   		 <tr>
+					<td><%= image_tag item.get_image(100,100)%></td>
+					<td><%= item.name %></td>
+					<td>提供価格　<%= item.half_price %>円</td>
+					<td>正規価格　<%= item.price %>円</td>
+					<td>在庫数　<%= item.inventory %>個</td>
+					<td>
+						<% if item.is_ordered %>
+						  <div class='text-success'>Sale</div>
+						<% else %>
+						  <div class="text-danger">Sold-Out</div>
+						<% end %>
+					  <%= link_to  edit_admin_item_path(item), class: 'text-reset' do  %>
+					    編集する<i class="fas fa-edit"></i>
+					  <% end %>
+					  <%= link_to admin_item_path(item), method: :delete, class: 'text-reset',"data-confirm" => "本当に消しますか？" do %>
+					  	削除する<i class="fas fa-trash"></i>
+					  <% end %>
+			  	</td>
+  			</tr>
+				<% end %>
+			<% end %>
+      </table>
+    </div>
+  </div>
+</div>

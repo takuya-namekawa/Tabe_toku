@@ -1,0 +1,73 @@
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-center font-weight-bold border-bottom  border-dark" style="color: #6e470c; ">
+        お支払い方法とご来店時間をお選びください
+      <p>
+    </div>
+  </div>
+</div>
+<div class="container pt-3 mb-5 mt-3 bg-white border border-5 shadow-sm">
+  <div class="row ">
+    <div class="col-3">
+      <h4 class="m-3">お支払い方法</h4>
+        <table class="table  ">
+          <%= form_with model: @order, url: orders_path do |f| %>
+            <tr>
+              <td>
+                <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
+                <%= f.label :payment_method, Order.payment_methods_i18n[:cash] %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+                <%= f.label :payment_method, Order.payment_methods_i18n[:credit_card]%>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.radio_button :payment_method, Order.payment_methods.key(2) %>
+                <%= f.label :payment_method, Order.payment_methods_i18n[:transportation_money]%>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.radio_button :payment_method, Order.payment_methods.key(3) %>
+                <%= f.label :payment_method, Order.payment_methods_i18n[:barcode]%>
+              </td>
+            </tr>
+        </table>
+        </div>
+        <div class="col-9">
+          <h4 class="m-3">ご来店時間</h4>
+            <table class="table  ">
+              <%= f.fields_for :reserves do |g| %>
+                <% admin = Admin.find_by(id: g.object.admin_id) %>
+                  <td><%= image_tag admin.get_image(100,100)%></td>
+                  <td class=" font-weight-bold">店舗名</td>
+                  <td><%= admin.name %></td>
+                  <td class=" font-weight-bold">提供開始</td>
+                  <td><%= admin.start_offer %></td>
+                  <td class=" font-weight-bold">提供終了</td>
+                  <td><%= admin.end_offer %></td>
+                  <tr>
+                    <td class=" font-weight-bold ">
+                      ご来店予定時間<br>
+                      <%= g.select :hour, [*admin.start_offer.gsub("/:00/","").to_i..admin.end_offer.gsub("/:00/","").to_i] %>：
+                      <%= g.select :minutes, [00, 15, 30, 45].map{ |o| format("%02d", o) } %>
+                    </td>
+               　  </tr>
+                  <%= g.hidden_field :cart_data %>
+                  <%= g.hidden_field :total_payment %>
+                  <%= g.hidden_field :admin_id %>
+              <% end %>
+              <tr>
+                <td><%= f.submit "ご予約を確定する" , class: "btn btn-danger btn-block"%> </td>
+              </tr>
+          <% end %>
+          </table>
+        </div>
+  </div>
+</div>

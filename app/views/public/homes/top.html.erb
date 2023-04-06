@@ -5,6 +5,8 @@
 <%= link_to "sign_up", new_customer_registration_path %>
 <%= link_to "sign_out", destroy_customer_session_path, method: :delete %>
 <%= link_to "customer_mypage", my_page_customers_path %>
+<%= link_to "item_index", items_path %>
+
 
 
 
@@ -15,4 +17,5 @@
 <%= link_to "admin_sign_up", new_admin_registration_path %>
 <%= link_to "admin_sign_out", destroy_admin_session_path, method: :delete %>
 <br>
-<%= link_to "admin_item_index", admin_items_path %><br>
+<%= link_to "admin_item_index", admin_items_path %>
+<%= link_to "admin_mypage", my_page_admin_admins_path %><br>

@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'items/index'
-    get 'items/show'
+  namespace :admin do
+    get 'admins/show'
+    get 'admins/edit'
   end
   namespace :public do
-    get 'customers/show'
-    get 'customers/edit'
+    get 'cart_items/index'
   end
   devise_for :customers,skip: [:passwords], controllers: {
     registrations: "public/registrations",
@@ -53,8 +52,22 @@ Rails.application.routes.draw do
   end
   
   namespace :admin do
-    resources :items, only: [:index, :new, :create, :edit, :destroy, :update]
+    resources :admins, only: [:edit, :update] do
+      collection do
+        get "my_page" => "admins#show"
+      end
+    end
+    resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :genres, only: [:index, :create, :edit, :update, :destroy]
+    resources :reserves, only: [:index, :show, :create, :update]
+    resources :customers, only: [:edit, :show, :update] do
+      patch "out"
+    end
+    resources :notifications, only: :index do
+      get "join" => "notifications#join"
+      get "new/mail" => "notifications#new_mail"
+      get "send/mail" => "notifications#send_mail"
+    end
   end
 
 end

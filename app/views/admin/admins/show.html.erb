@@ -1,0 +1,10 @@
+<h1>Admin::Admins#show</h1>
+<p>Find me in app/views/admin/admins/show.html.erb</p>
+<%= image_tag @admin.get_image(200,200) %>
+<%= @admin.name %>
+<%= @admin.address %>
+<%= @admin.phone_number %>
+<%= @admin.home_page %>
+<%= @admin.start_offer %>
+<%= @admin.end_offer %>
+<%= link_to "編集",  edit_admin_admin_path(@admin) %>

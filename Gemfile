@@ -61,3 +61,4 @@ gem "net-pop"
 gem "net-imap"
 gem 'mini_magick'
 gem 'image_processing'
+gem "enum_help"

@@ -1,2 +1,60 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="text-center col-sm-12 col-md-8">
+      <%= link_to  admin_path(@item.admin) , class: "text-decoration-none" do %>
+        <%= image_tag @item.get_image(700,700), class: 'img-fluid'%>
+      <% end %>
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <table class="table table-borderless">
+        <tr>
+          <td>
+           <%= link_to  admin_path(@item.admin) , class: "text-decoration-none" do %>
+             <%= image_tag @item.admin.get_image(150,150), class: 'img-fluid'%>
+           <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td><h5><%= @item.name %></h5></td>
+        </tr>
+        <tr>
+          <td><h6><%= @item.explanation %></h6></td>
+        </tr>
+        <tr>
+          <td><h5>提供価格<%= @item.half_price %>円(税込)</h5></td>
+        </tr>
+        <tr>
+          <td>正規価格<%= @item.price %>円(税込)</td>
+        </tr>
+        <tr>
+          <td>在庫数 <%= @item.inventory %>個</td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr>
+          <td>
+            <% if customer_signed_in? %>
+              <% if @item.is_ordered == true %>
+                <%= form_with model: @cart_item, url: cart_items_path(item_id: @item.id)  do |f| %>
+                  <%= f.hidden_field :item_id, value: @item.id %>
+                  <%= f.hidden_field :customer_id, :value => current_customer.id %>
+                  <%= f.select :amount,@item_inventory,{include_blank: '個数選択'},required:true%>&emsp;
+                  <%= f.submit 'カートに入れる' ,class: 'btn btn-danger btn-sm'%>
+                <% end %>
+              <% else %>
+                <h5 class="text-danger">sold-out</h5>
+            　<% end %>
+           　  <%= link_to cart_items_path , class: "text-reset" do %>
+                <i class="fas fa-shopping-cart "></i> カートに戻る
+            　<% end %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
